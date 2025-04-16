@@ -72,6 +72,10 @@ namespace QuoteMachine_ExerciceGit
             throw new NotImplementedException("À implémenter dans feature/load-from-file");
         }
 
+        /// <summary>
+        /// Cette fonction récupère la liste de toutes les quotes enregistrées
+        /// </summary>
+        /// <returns>La liste de quotes</returns>
         public List<Quote> GetAllQuotes()
         {
             return _quotes; // Pas besoin d'ajouter de test pour cette méthode

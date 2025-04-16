@@ -10,9 +10,15 @@ Console.ReadKey(true);
 var manager = new QuoteManager();
 string path = "citations.csv";
 
+List<Quote> quotes = manager.GetAllQuotes();
+
+foreach (Quote quote in quotes)
+    Console.WriteLine(quote);
+
+Console.ReadKey(true);
 static void ShowRandomQuote(QuoteManager manager)
 {
-    Console.WriteLine("Voici une situation aléatoire \n");
+
     Console.WriteLine(manager.GetRandomQuote());
 }
 
