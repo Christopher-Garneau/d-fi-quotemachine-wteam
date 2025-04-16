@@ -60,22 +60,60 @@ namespace QuoteMachine_ExerciceGit
             throw new NotImplementedException("À implémenter dans feature/save-to-file");
         }
 
+        //public void LoadFromCSVFile(string path)
+        //{
+        //    //Avant de commencer, décommenter les tests suivants:
+        //    //LoadFromFile_ShouldAppendQuotesToList
+        //    //LoadFromFile_ShouldThrowIfFileMissing
+        //    //LoadFromFile_ShouldThrowIfNotInCSVExtension
+
+        //    //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
+
+        //    throw new NotImplementedException("À implémenter dans feature/load-from-file");
+        //}
+
+
+
         public void LoadFromCSVFile(string path)
         {
-            //Avant de commencer, décommenter les tests suivants:
-            //LoadFromFile_ShouldAppendQuotesToList
-            //LoadFromFile_ShouldThrowIfFileMissing
-            //LoadFromFile_ShouldThrowIfNotInCSVExtension
+            if (!IsCSVFile(path))
+            {
+                throw new QuoteFileException("Erreur lors de la sauvegarde : le fichier doit avoir l'extension .csv");
+            }
 
-            //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
+            if (!File.Exists(path))
+            {
+                throw new QuoteFileException("Erreur lors du chargement : le fichier n'existe pas");
+            }
 
-            throw new NotImplementedException("À implémenter dans feature/load-from-file");
+            try
+            {
+                var lignes = File.ReadAllLines(path);
+                foreach (var ligne in lignes)
+                {
+                    var parties = ligne.Split(',');
+                    if (parties.Length == 2)
+                    {
+                        _quotes.Add(new Quote
+                        {
+                            Text = parties[0].Trim(),
+                            Author = parties[1].Trim()
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new QuoteFileException("Erreur lors du chargement du fichier.", ex);
+            }
         }
+
 
         /// <summary>
         /// Cette fonction récupère la liste de toutes les quotes enregistrées
         /// </summary>
         /// <returns>La liste de quotes</returns>
+
         public List<Quote> GetAllQuotes()
         {
             return _quotes; // Pas besoin d'ajouter de test pour cette méthode

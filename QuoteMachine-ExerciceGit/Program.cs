@@ -49,18 +49,40 @@ static void SaveQuotesToFile(QuoteManager manager)
     }
 }
 
+
+
+
+
 static void LoadQuotesFromFile(QuoteManager manager)
 {
     try
     {
-        Console.WriteLine("[Simulation] On chargerait les citations ici.");
-        // Exemple futur :
-        // manager.LoadFromFile("citations.txt");
-        //Console.WriteLine("Citations chargées !");
+        string path = "citations.csv";
+        manager.LoadFromCSVFile(path);
+        Console.WriteLine("Citations chargées avec succès !");
+    }
+    catch (QuoteFileException ex)
+    {
+        Console.WriteLine($"Erreur lors du chargement : {ex.Message}");
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"Erreur : {ex.Message}");
+        Console.WriteLine($"Erreur inattendue : {ex.Message}");
     }
 }
+
+//static void LoadQuotesFromFile(QuoteManager manager)
+//{
+//    try
+//    {
+//        Console.WriteLine("[Simulation] On chargerait les citations ici.");
+//        // Exemple futur :
+//        // manager.LoadFromFile("citations.txt");
+//        //Console.WriteLine("Citations chargées !");
+//    }
+//    catch (Exception ex)
+//    {
+//        Console.WriteLine($"Erreur : {ex.Message}");
+//    }
+//}
 
