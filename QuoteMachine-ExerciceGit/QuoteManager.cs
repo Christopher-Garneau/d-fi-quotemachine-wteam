@@ -38,15 +38,27 @@ namespace QuoteMachine_ExerciceGit
             throw new NotImplementedException("À implémenter dans feature/add-quote");
         }
 
+        /// <summary>
+        /// Crer un chemin d'accès pour le nouveau fichier créé.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="QuoteFileException"></exception>
         public void SaveToCSVFile(string path)
         {
             //Avant de commencer, décommenter les tests suivants:
             //SaveToFile_ShouldCreateFile
             //SaveToFile_ShouldThrowIfNotInCSVExtension
 
+            string lastThreeChars = path.Substring(path.Length - 3);
+
             if(path == null)
             {
                 throw new ArgumentNullException("Le chemin d'accès est vide!");
+            }
+            else if(lastThreeChars != "csv")
+            {
+                throw new QuoteFileException("Erreur lors de la sauvegarde : le fichier doit avoir l'extension .csv");
             }
             else
             {
