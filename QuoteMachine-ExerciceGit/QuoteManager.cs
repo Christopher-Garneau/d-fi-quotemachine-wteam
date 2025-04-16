@@ -88,7 +88,11 @@ namespace QuoteMachine_ExerciceGit
 
 
 
-
+        /// <summary>
+        /// Permet de loader le csvfile.
+        /// </summary>
+        /// <param name="path">iscsvfile le fichier file</param>
+        /// <exception cref="QuoteFileException"></exception>
         public void LoadFromCSVFile(string path)
         {
             if (!IsCSVFile(path))
