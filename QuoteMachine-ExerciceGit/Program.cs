@@ -1,46 +1,115 @@
 ﻿using QuoteMachine_ExerciceGit;
 
-Console.WriteLine("Bienvenue dans QuoteMachine!");
-Console.WriteLine("Ce projet est collaboratif et utilise le GitHub Flow.");
-Console.WriteLine("Développez une application console pour gérer et afficher des citations inspirantes.\n");
-Console.WriteLine("Prochaines étapes : implémentez les fonctionnalités dans des branches distinctes.\n");
-Console.WriteLine("\n=== Menu Principal ===");
-Console.WriteLine("Implémentez le menu du programme dans feature/menu");
-Console.ReadKey(true);
 var manager = new QuoteManager();
 string path = "citations.csv";
 
-List<Quote> quotes = manager.GetAllQuotes();
+// Charger les citations sauvegardées dès le démarrage
+try
+{
+    manager.LoadFromCSVFile(path);
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"[Info] Impossible de charger les citations au démarrage : {ex.Message}");
+}
 
-foreach (Quote quote in quotes)
-    Console.WriteLine(quote);
+bool quitter = false;
 
-Console.ReadKey(true);
+while (!quitter)
+{
+    Console.Clear();
+    Console.WriteLine("=== QuoteMachine ===");
+    Console.WriteLine("1. Afficher une citation aléatoire");
+    Console.WriteLine("2. Ajouter une citation");
+    Console.WriteLine("3. Afficher toutes les citations");
+    Console.WriteLine("4. Recharger les citations depuis le fichier");
+    Console.WriteLine("5. Sauvegarder les citations dans le fichier");
+    Console.WriteLine("0. Quitter");
+    Console.Write("\nChoix : ");
+
+    var choix = Console.ReadLine();
+    Console.Clear();
+
+    switch (choix)
+    {
+        case "1":
+            ShowRandomQuote(manager);
+            break;
+        case "2":
+            AddNewQuote(manager);
+            break;
+        case "3":
+            foreach (var quote in manager.GetAllQuotes())
+                Console.WriteLine(quote);
+            break;
+        case "4":
+            LoadQuotesFromFile(manager);
+            break;
+        case "5":
+            SaveQuotesToFile(manager);
+            break;
+        case "0":
+            try
+            {
+                manager.SaveToCSVFile(path); // ✅ Sauvegarde automatique
+                Console.WriteLine("Citations sauvegardées avant de quitter.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur lors de la sauvegarde avant de quitter : {ex.Message}");
+            }
+            quitter = true;
+            Console.WriteLine("Merci d’avoir utilisé QuoteMachine !");
+            break;
+        default:
+            Console.WriteLine("Choix invalide. Réessayez.");
+            break;
+    }
+
+    if (!quitter)
+    {
+        Console.WriteLine("\nAppuyez sur une touche pour continuer...");
+        Console.ReadKey(true);
+    }
+}
+
+// === Méthodes du menu ===
+
 static void ShowRandomQuote(QuoteManager manager)
 {
-
-    Console.WriteLine(manager.GetRandomQuote());
+    try
+    {
+        Console.WriteLine(manager.GetRandomQuote());
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Erreur : {ex.Message}");
+    }
 }
 
 static void AddNewQuote(QuoteManager manager)
 {
-    Console.WriteLine("[Simulation] On ajouterait une nouvelle citation ici.");
-    // Exemple futur :
     Console.Write("Texte : ");
     var texte = Console.ReadLine();
     Console.Write("Auteur : ");
     var auteur = Console.ReadLine();
-    manager.AddQuote(texte, auteur);
-    Console.WriteLine("Citation ajoutée !");
+
+    try
+    {
+        manager.AddQuote(texte, auteur);
+        Console.WriteLine("Citation ajoutée !");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Erreur : {ex.Message}");
+    }
 }
 
 static void SaveQuotesToFile(QuoteManager manager)
 {
     try
     {
-        Console.WriteLine("[Simulation] On sauvegarderait les citations ici.");
-        // Exemple futur :
-        manager.SaveToCSVFile("citations.csv");
+        manager.SaveToCSVFile(" citations.csv");
         Console.WriteLine("Citations sauvegardées !");
     }
     catch (Exception ex)
@@ -49,16 +118,11 @@ static void SaveQuotesToFile(QuoteManager manager)
     }
 }
 
-
-
-
-
 static void LoadQuotesFromFile(QuoteManager manager)
 {
     try
     {
-        string path = "citations.csv";
-        manager.LoadFromCSVFile(path);
+        manager.LoadFromCSVFile("citations.csv");
         Console.WriteLine("Citations chargées avec succès !");
     }
     catch (QuoteFileException ex)
@@ -70,6 +134,3 @@ static void LoadQuotesFromFile(QuoteManager manager)
         Console.WriteLine($"Erreur inattendue : {ex.Message}");
     }
 }
-
-
-
