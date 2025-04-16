@@ -81,17 +81,6 @@ namespace QuoteMachine_ExerciceGit
             //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
         }
 
-        //public void LoadFromCSVFile(string path)
-        //{
-        //    //Avant de commencer, décommenter les tests suivants:
-        //    //LoadFromFile_ShouldAppendQuotesToList
-        //    //LoadFromFile_ShouldThrowIfFileMissing
-        //    //LoadFromFile_ShouldThrowIfNotInCSVExtension
-
-        //    //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
-
-        //    throw new NotImplementedException("À implémenter dans feature/load-from-file");
-        //}
 
 
 
