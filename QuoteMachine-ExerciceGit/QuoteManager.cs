@@ -20,45 +20,122 @@ namespace QuoteMachine_ExerciceGit
             };
         }
 
+        /// <summary>
+        /// Méthode qui permet de récuperer une quote aléatoire parmi les quotes
+        /// </summary>
+        /// <returns></returns>
         public Quote GetRandomQuote()
         {
-            //Avant de commencer, décommenter le test suivant:
-            //GetRandomQuote_ShouldReturnNonNullQuote
+            if (_quotes == null || _quotes.Count < 0 )
+            {
+                return null;
+            }
 
-            //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
-            throw new NotImplementedException("À implémenter dans feature/random-quote");
+            Random random = new Random();
+
+            int i = random.Next(_quotes.Count);
+
+            return _quotes[i];
         }
 
+        /// <summary>
+        /// Permet d'ajouter une quote à la liste
+        /// </summary>
+        /// <param name="text">Le message de la quote</param>
+        /// <param name="author">L'auteur de la quote</param>
+        /// <exception cref="ArgumentNullException">Si le message ou l'auteur est vide</exception>
         public void AddQuote(string text, string author)
         {
             //Avant de commencer, décommenter le test suivant:
             //AddQuote_ShouldIncreaseQuoteCount
+            if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(author))
+            {
+                throw new ArgumentNullException("Le text et l'auteur sont obligatoire.");
+            }
+            Quote newQuote = new Quote { Text = text, Author = author };
+            _quotes.Add(newQuote);
 
             //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
-            throw new NotImplementedException("À implémenter dans feature/add-quote");
+            //throw new NotImplementedException("À implémenter dans feature/add-quote");
         }
 
+        /// <summary>
+        /// Crer un chemin d'accès pour le nouveau fichier créé.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="QuoteFileException"></exception>
         public void SaveToCSVFile(string path)
         {
             //Avant de commencer, décommenter les tests suivants:
             //SaveToFile_ShouldCreateFile
             //SaveToFile_ShouldThrowIfNotInCSVExtension
 
+            string lastThreeChars = path.Substring(path.Length - 3);
+
+            if(path == null)
+            {
+                throw new ArgumentNullException("Le chemin d'accès est vide!");
+            }
+            else if(lastThreeChars != "csv")
+            {
+                throw new QuoteFileException("Erreur lors de la sauvegarde : le fichier doit avoir l'extension .csv");
+            }
+            else
+            {
+                FileStream fs = File.Create(path);
+                fs.Close();
+            }
+
             //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
-            throw new NotImplementedException("À implémenter dans feature/save-to-file");
         }
 
+
+
+        /// <summary>
+        /// Permet de loader le csvfile.
+        /// </summary>
+        /// <param name="path">iscsvfile le fichier file</param>
+        /// <exception cref="QuoteFileException"></exception>
         public void LoadFromCSVFile(string path)
         {
-            //Avant de commencer, décommenter les tests suivants:
-            //LoadFromFile_ShouldAppendQuotesToList
-            //LoadFromFile_ShouldThrowIfFileMissing
-            //LoadFromFile_ShouldThrowIfNotInCSVExtension
+            if (!IsCSVFile(path))
+            {
+                throw new QuoteFileException("Erreur lors de la sauvegarde : le fichier doit avoir l'extension .csv");
+            }
 
-            //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
+            if (!File.Exists(path))
+            {
+                throw new QuoteFileException("Erreur lors du chargement : le fichier n'existe pas");
+            }
 
-            throw new NotImplementedException("À implémenter dans feature/load-from-file");
+            try
+            {
+                var lignes = File.ReadAllLines(path);
+                foreach (var ligne in lignes)
+                {
+                    var parties = ligne.Split(',');
+                    if (parties.Length == 2)
+                    {
+                        _quotes.Add(new Quote
+                        {
+                            Text = parties[0].Trim(),
+                            Author = parties[1].Trim()
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new QuoteFileException("Erreur lors du chargement du fichier.", ex);
+            }
         }
+
+
+        /// <summary>
+        /// Cette fonction récupère la liste de toutes les quotes enregistrées
+        /// </summary>
+        /// <returns>La liste de quotes</returns>
 
         public List<Quote> GetAllQuotes()
         {
