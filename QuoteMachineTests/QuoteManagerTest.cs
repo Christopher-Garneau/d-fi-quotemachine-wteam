@@ -19,14 +19,40 @@ namespace QuoteMachineTests
         //    Assert.IsType<Quote>(quote);
         //}
 
-        //[Fact]
-        //public void AddQuote_ShouldIncreaseQuoteCount()
-        //{
-        //    int countBefore = _manager.GetAllQuotes().Count;
-        //    _manager.AddQuote("Test", "Moi");
-        //    int countAfter = _manager.GetAllQuotes().Count;
-        //    Assert.Equal(++countBefore, countAfter);
-        //}
+               [Fact]
+        public void AddQuote_ShouldIncreaseQuoteCount()
+        {
+            int countBefore = _manager.GetAllQuotes().Count;
+            _manager.AddQuote("Test", "Moi");
+            int countAfter = _manager.GetAllQuotes().Count;
+            Assert.Equal(++countBefore, countAfter);
+        }
+
+		[Fact]
+		public void AddQuote_NullTextCallsThrow()
+		{
+			Assert.Throws<ArgumentNullException>(() =>
+			{
+				_manager.AddQuote("", "Jonas");
+			});
+		}
+
+		[Fact]
+		public void AddQuote_NullAuthorCallsThrow()
+		{
+			Assert.Throws<ArgumentNullException>(() =>
+			{
+				_manager.AddQuote("Get over here!", "");
+			});
+		}
+		[Fact]
+		public void AddQuote_NullTextAndNullAuthorCallsThrow()
+		{
+			Assert.Throws<ArgumentNullException>(() =>
+			{
+				_manager.AddQuote("", "");
+			});
+		}
 
         //[Fact]
         //public void SaveToFile_ShouldCreateFile()
@@ -53,7 +79,7 @@ namespace QuoteMachineTests
             File.WriteAllLines(path, new[]
             {
             "Le test est la preuve,Professeur X",
-            "Programmer, c’est penser deux fois,Alan Kay"
+            "Programmer, câ€™est penser deux fois,Alan Kay"
             });
 
             _manager.LoadFromCSVFile(path);
@@ -86,4 +112,8 @@ namespace QuoteMachineTests
             File.Delete(path);
         }
     }
+
+      
+	
+
 }
