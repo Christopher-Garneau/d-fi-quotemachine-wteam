@@ -34,7 +34,7 @@ static void SaveQuotesToFile(QuoteManager manager)
     {
         Console.WriteLine("[Simulation] On sauvegarderait les citations ici.");
         // Exemple futur :
-        manager.SaveToCSVFile("citations.txt");
+        manager.SaveToCSVFile("citations.csv");
         Console.WriteLine("Citations sauvegardées !");
     }
     catch (Exception ex)

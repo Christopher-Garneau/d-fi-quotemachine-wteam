@@ -44,8 +44,17 @@ namespace QuoteMachine_ExerciceGit
             //SaveToFile_ShouldCreateFile
             //SaveToFile_ShouldThrowIfNotInCSVExtension
 
+            if(path == null)
+            {
+                throw new ArgumentNullException("Le chemin d'accès est vide!");
+            }
+            else
+            {
+                FileStream fs = File.Create(path);
+                fs.Close();
+            }
+
             //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
-            throw new NotImplementedException("À implémenter dans feature/save-to-file");
         }
 
         public void LoadFromCSVFile(string path)
