@@ -71,18 +71,5 @@ static void LoadQuotesFromFile(QuoteManager manager)
     }
 }
 
-//static void LoadQuotesFromFile(QuoteManager manager)
-//{
-//    try
-//    {
-//        Console.WriteLine("[Simulation] On chargerait les citations ici.");
-//        // Exemple futur :
-//        // manager.LoadFromFile("citations.txt");
-//        //Console.WriteLine("Citations chargées !");
-//    }
-//    catch (Exception ex)
-//    {
-//        Console.WriteLine($"Erreur : {ex.Message}");
-//    }
-//}
+
 
