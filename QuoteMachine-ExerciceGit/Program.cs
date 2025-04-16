@@ -40,8 +40,8 @@ static void SaveQuotesToFile(QuoteManager manager)
     {
         Console.WriteLine("[Simulation] On sauvegarderait les citations ici.");
         // Exemple futur :
-        // manager.SaveToFile("citations.txt");
-        //Console.WriteLine("Citations sauvegardées !");
+        manager.SaveToCSVFile("citations.csv");
+        Console.WriteLine("Citations sauvegardées !");
     }
     catch (Exception ex)
     {
