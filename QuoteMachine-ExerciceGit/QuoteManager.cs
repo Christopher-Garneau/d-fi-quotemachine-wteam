@@ -48,6 +48,20 @@ namespace QuoteMachine_ExerciceGit
             throw new NotImplementedException("À implémenter dans feature/save-to-file");
         }
 
+
+
+
+        //    //LoadFromFile_ShouldAppendQuotesToList
+        //    //LoadFromFile_ShouldThrowIfFileMissing
+        //    //LoadFromFile_ShouldThrowIfNotInCSVExtension
+
+        //    //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
+
+        //    throw new NotImplementedException("À implémenter dans feature/load-from-file");
+        //}
+
+
+
         public void LoadFromCSVFile(string path)
         {
             //Avant de commencer, décommenter les tests suivants:
