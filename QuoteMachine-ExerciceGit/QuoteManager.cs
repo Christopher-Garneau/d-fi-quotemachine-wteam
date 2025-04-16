@@ -34,7 +34,12 @@ namespace QuoteMachine_ExerciceGit
             return _quotes[i];
         }
 
-
+        /// <summary>
+        /// Permet d'ajouter une quote à la liste
+        /// </summary>
+        /// <param name="text">Le message de la quote</param>
+        /// <param name="author">L'auteur de la quote</param>
+        /// <exception cref="ArgumentNullException">Si le message ou l'auteur est vide</exception>
         public void AddQuote(string text, string author)
         {
             //Avant de commencer, décommenter le test suivant:
