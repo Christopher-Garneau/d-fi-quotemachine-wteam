@@ -33,9 +33,15 @@ namespace QuoteMachine_ExerciceGit
         {
             //Avant de commencer, décommenter le test suivant:
             //AddQuote_ShouldIncreaseQuoteCount
+            if (string.IsNullOrEmpty(text) || string.IsNullOrEmpty(author))
+            {
+                throw new ArgumentNullException("Le text et l'auteur sont obligatoire.");
+            }
+            Quote newQuote = new Quote { Text = text, Author = author };
+            _quotes.Add(newQuote);
 
             //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
-            throw new NotImplementedException("À implémenter dans feature/add-quote");
+            //throw new NotImplementedException("À implémenter dans feature/add-quote");
         }
 
         public void SaveToCSVFile(string path)
