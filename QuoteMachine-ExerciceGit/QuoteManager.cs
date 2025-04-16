@@ -20,6 +20,10 @@ namespace QuoteMachine_ExerciceGit
             };
         }
 
+        /// <summary>
+        /// Méthode qui permet de récuperer une quote aléatoire parmi les quotes
+        /// </summary>
+        /// <returns></returns>
         public Quote GetRandomQuote()
         {
             if (_quotes == null || _quotes.Count < 0 )
