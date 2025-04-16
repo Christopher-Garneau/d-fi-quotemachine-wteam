@@ -22,12 +22,18 @@ namespace QuoteMachine_ExerciceGit
 
         public Quote GetRandomQuote()
         {
-            //Avant de commencer, décommenter le test suivant:
-            //GetRandomQuote_ShouldReturnNonNullQuote
+            if (_quotes == null || _quotes.Count < 0 )
+            {
+                return null;
+            }
 
-            //Avant de créer votre PR, faites un git rebase sur main pour vous assurer que vous avez la dernière version du code.
-            throw new NotImplementedException("À implémenter dans feature/random-quote");
+            Random random = new Random();
+
+            int i = random.Next(_quotes.Count);
+
+            return _quotes[i];
         }
+
 
         public void AddQuote(string text, string author)
         {
@@ -103,26 +109,10 @@ namespace QuoteMachine_ExerciceGit
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        /// <summary>
+        /// Cette fonction récupère la liste de toutes les quotes enregistrées
+        /// </summary>
+        /// <returns>La liste de quotes</returns>
 
         public List<Quote> GetAllQuotes()
         {
