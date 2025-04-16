@@ -12,8 +12,8 @@ string path = "citations.csv";
 
 static void ShowRandomQuote(QuoteManager manager)
 {
-    Console.WriteLine("[Simulation] Une citation aléatoire s’afficherait ici.");
-    // Exemple futur : Console.WriteLine(manager.GetRandomQuote());
+    Console.WriteLine("Voici une situation aléatoire \n");
+    Console.WriteLine(manager.GetRandomQuote());
 }
 
 static void AddNewQuote(QuoteManager manager)
